@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => ({
   // Replace 'REPO_NAME' with the actual name of your friend's repository.
   // Example: If the URL is github.com/friend/portfolio, put "/portfolio/"
   // -----------------------------------------------------------------------
-  base: "/jiyad2255.github.io/", 
+  base: "/",
 
   server: {
     host: "::",
