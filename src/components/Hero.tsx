@@ -1,4 +1,5 @@
 import { Github, Linkedin, Download, ArrowDown, Rocket } from "lucide-react";
+import { trackEvent } from "@/analytics/trackEvent";
 import { Button } from "@/components/ui/button";
 import sayedImage from "@/assets/sayed-profile.png";
 import Silk from "@/components/Silk";
@@ -64,6 +65,12 @@ const Hero = () => {
             rel="noopener noreferrer"
             className="p-3 rounded-full bg-secondary hover:bg-secondary/80 transition-colors"
             aria-label="LinkedIn"
+            onClick={() =>
+              trackEvent("hero_social_click", {
+                event_category: "outbound",
+                event_label: "LinkedIn",
+              })
+            }
           >
             <Linkedin className="h-5 w-5 text-foreground" />
           </a>
@@ -73,6 +80,12 @@ const Hero = () => {
             rel="noopener noreferrer"
             className="p-3 rounded-full bg-secondary hover:bg-secondary/80 transition-colors"
             aria-label="GitHub"
+            onClick={() =>
+              trackEvent("hero_social_click", {
+                event_category: "outbound",
+                event_label: "Github",
+              })
+            }
           >
             <Github className="h-5 w-5 text-foreground" />
           </a>
@@ -81,7 +94,16 @@ const Hero = () => {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in">
           <Button asChild size="lg" className="gap-2">
-            <a href="/resume.pdf" download="Sayed_Muhammed_Jiyad_Resume.pdf">
+            <a 
+              href="/resume.pdf" 
+              download="Sayed_Muhammed_Jiyad_Resume.pdf"
+              onClick={() =>
+                trackEvent("resume_download", {
+                  event_category: "engagement",
+                  event_label: "Hero Resume Button",
+                })
+              }
+            >
               <Download className="h-4 w-4" />
               Download Resume
             </a>
@@ -90,7 +112,13 @@ const Hero = () => {
             variant="outline"
             size="lg"
             className="gap-2"
-            onClick={() => scrollToSection("#experience")}
+            onClick={() => {
+              trackEvent("hero_cta_click", {
+                event_category: "navigation",
+                event_label: "View My Work",
+              });
+              scrollToSection("#experience");
+            }}
           >
             <ArrowDown className="h-4 w-4" />
             View My Work
@@ -99,7 +127,13 @@ const Hero = () => {
             variant="secondary"
             size="lg"
             className="gap-2"
-            onClick={() => scrollToSection("#contact")}
+            onClick={() => {
+              trackEvent("hero_cta_click", {
+                event_category: "conversion",
+                event_label: "Let's Build a Product",
+              });
+              scrollToSection("#contact");
+            }}
           >
             <Rocket className="h-4 w-4" />
             Let's Build a Product

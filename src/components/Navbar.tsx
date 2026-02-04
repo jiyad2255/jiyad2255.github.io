@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { trackEvent } from "@/analytics/trackEvent";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -16,13 +17,27 @@ const navLinks = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-    setIsOpen(false);
-  };
+  // const scrollToSection = (href: string) => {
+  //   const element = document.querySelector(href);
+  //   if (element) {
+  //     element.scrollIntoView({ behavior: "smooth" });
+  //   }
+  //   setIsOpen(false);
+  // };
+  const scrollToSection = (href: string, label: string) => {
+      const element = document.querySelector(href);
+
+      // Track navbar click
+      trackEvent("navbar_click", {
+        event_category: "navigation",
+        event_label: label,
+      });
+
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+      setIsOpen(false);
+    };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
@@ -34,6 +49,10 @@ const Navbar = () => {
             onClick={(e) => {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
+              trackEvent("navbar_click", {
+                event_category: "navigation",
+                event_label: "Home",
+              });
             }}
           >
             Sayed Muhammed Jiyad
@@ -44,7 +63,7 @@ const Navbar = () => {
             {navLinks.map((link) => (
               <button
                 key={link.name}
-                onClick={() => scrollToSection(link.href)}
+                onClick={() => scrollToSection(link.href, link.name)}
                 className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium"
               >
                 {link.name}
@@ -73,7 +92,7 @@ const Navbar = () => {
               {navLinks.map((link) => (
                 <button
                   key={link.name}
-                  onClick={() => scrollToSection(link.href)}
+                  onClick={() => scrollToSection(link.href,link.name)}
                   className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium text-left"
                 >
                   {link.name}
