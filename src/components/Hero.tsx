@@ -75,7 +75,7 @@ const Hero = () => {
             <Linkedin className="h-5 w-5 text-foreground" />
           </a>
           <a
-            href="https://github.com/Jiyad987/"
+            href="https://github.com/jiyad2255/"
             target="_blank"
             rel="noopener noreferrer"
             className="p-3 rounded-full bg-secondary hover:bg-secondary/80 transition-colors"
